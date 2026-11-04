@@ -987,8 +987,10 @@ void SleepActivity::renderCoverSleepScreen() const {
 }
 
 void SleepActivity::renderLastScreenSleepScreen() const {
-  const auto pageHeight = renderer.getScreenHeight();
-  renderer.drawImage(MoonIcon, 0, pageHeight - MOONICON_HEIGHT, MOONICON_WIDTH, MOONICON_HEIGHT);
+  const auto pageWidth = renderer.getScreenWidth();
+  // Top-right corner keeps the moon clear of the reader's bottom-left
+  // battery cluster (see BaseTheme::drawStatusBar).
+  renderer.drawImage(MoonIcon, pageWidth - MOONICON_WIDTH, 0, MOONICON_WIDTH, MOONICON_HEIGHT);
   // Only the moon differs from the displayed frame, so a differential FAST
   // update adds it without the flashing clean pass (which sweeps the panel
   // through the inverse — a full white flash on a night-mode page).
